@@ -3,6 +3,7 @@ import { DM_Sans } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/providers/theme-provider";
 import InfoBar from "@/components/global/info-bar";
+import { ConvexClientProvider } from "@/providers/convex-client-provider";
 
 const inter = DM_Sans({ subsets: ["latin"] });
 
@@ -17,7 +18,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" >
+    <html lang="en">
       <body className={inter.className}>
         {" "}
         <ThemeProvider
@@ -26,7 +27,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          {children}
+          <ConvexClientProvider>{children}</ConvexClientProvider>
         </ThemeProvider>
       </body>
     </html>

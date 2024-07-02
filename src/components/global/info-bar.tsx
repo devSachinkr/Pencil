@@ -4,9 +4,12 @@ import pencil from "../../../public/pencil.png";
 import { menuOptions } from "@/constants";
 import Link from "next/link";
 import { ModeToggle } from "./mode-toggle";
+import { LoginLink } from "@kinde-oss/kinde-auth-nextjs/components";
+import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 type Props = {};
-
-const InfoBar = (props: Props) => {
+const InfoBar = async (props: Props) => {
+  const { getUser } = getKindeServerSession();
+  const user = await getUser();
   return (
     <div className="w-full flex items-center justify-between pt-4 bg-transparent sticky top-0 z-[99]">
       <div className="pl-3 flex items-center ">
@@ -24,12 +27,19 @@ const InfoBar = (props: Props) => {
         ))}
       </div>
       <div className=" pr-3 flex gap-x-4 items-center">
-        <Link
-          href={"/login"}
-          className="bg-primary p-3 px-4 rounded-md text-white "
-        >
-          Login
-        </Link>
+        {!user ? (
+          <LoginLink className="bg-primary p-3 px-4 rounded-md text-white">
+            Login
+          </LoginLink>
+        ) : (
+          <Link
+            href={"/dashboard"}
+            className="bg-primary/30 p-3 px-4 rounded-full border-[1px] border-primary"
+          >
+            Dashboard
+          </Link>
+        )}
+
         <ModeToggle />
       </div>
     </div>
