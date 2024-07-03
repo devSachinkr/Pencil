@@ -12,8 +12,11 @@ export const getUser = query({
     return res;
   },
 });
+
 const allowedPlans = ["STANDARD", "PREMIUM", "ENTERPRISE"];
 const allowedRoles = ["USER", "ADMIN"];
+
+
 export const createUser = mutation({
   args: {
     name: v.string(),

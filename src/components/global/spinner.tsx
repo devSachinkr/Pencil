@@ -1,16 +1,23 @@
-import React from "react";
-import Loader from "./loader";
+import React from 'react'
+import { cn } from '@/lib/utils'
+import Loader from './loader'
 
-type Props = {
-  loading: boolean;
-};
+type LoaderProps = {
+  loading?: boolean
+  children?: React.ReactNode
+  className?: string
+}
 
-const Spinner = ({ loading }: Props) => {
-  return (
-    <div className="flex items-center justify-center w-screen h-screen">
-      {loading && <Loader />}
+export const Spinner = ({
+  loading,
+  children,
+  className,
+}: LoaderProps) => {
+  return loading ? (
+    <div className={cn(className || 'w-full py-5 flex justify-center')}>
+      <Loader/>
     </div>
-  );
-};
-
-export default Spinner;
+  ) : (
+    children
+  )
+}
