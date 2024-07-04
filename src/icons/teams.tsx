@@ -3,7 +3,7 @@ import React from "react";
 
 type Props = {};
 
-const teams = (props: Props) => {
+const Teams = (props: Props) => {
   return (
     <svg
       width="30"
@@ -54,4 +54,4 @@ const teams = (props: Props) => {
   );
 };
 
-export default teams;
+export default Teams;

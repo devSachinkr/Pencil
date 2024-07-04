@@ -4,7 +4,16 @@ import SettingsSvg from "@/icons/settings";
 import PremiumSvg from "@/icons/premium";
 import TeamsSvg from "@/icons/teams";
 
-import { Bolt, LogOut, LucideIcon, UserRound } from "lucide-react";
+import {
+  Bolt,
+  Flag,
+  Github,
+  LockKeyhole,
+  LogOut,
+  LucideIcon,
+  Trash2,
+  UserRound,
+} from "lucide-react";
 import React from "react";
 type menuOption = {
   path: string;
@@ -75,5 +84,38 @@ export const TEAM_DETAILS_MENU_OPTIONS: teamNameMenuOptions[] = [
     name: "Logout",
     path: "#",
     icon: LogOut,
+  },
+];
+
+export type sidebarMenuOptionBottom = {
+  name: string;
+  path: string;
+  icon: LucideIcon;
+  sideIcon: string ;
+};
+export const SIDEBAR_MENU_OPTIONS_BOTTOM: sidebarMenuOptionBottom[] = [
+  {
+    name: "Getting Started",
+    path: "#",
+    icon: Flag,
+    sideIcon: "S",
+  },
+  {
+    name: "Github Sync",
+    path: "#",
+    icon: Github,
+    sideIcon: "G",
+  },
+  {
+    name: "Private Files",
+    path: "#",
+    icon: LockKeyhole,
+    sideIcon: "UPGRADE",
+  },
+  {
+    name: "Archive",
+    path: "#",
+    icon: Trash2,
+    sideIcon: "E",
   },
 ];

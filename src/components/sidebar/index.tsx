@@ -17,9 +17,9 @@ const Sidebar = (props: Props) => {
   return (
     <div
       className={cn(
-        "flex flex-col transition-all bg-gray-950",
-        isOpen ? "w-60" : "w-16",
-        "h-screen  border-r border-slate-200  dark:border-slate-700 ease-in-out delay-150 duration-300 "
+        "flex flex-col transition-all bg-background ",
+        isOpen ? "w-60 " : "w-16 h-screen",
+        "pb-5  border-r  border-slate-200  dark:border-slate-700 ease-in-out delay-150 duration-300   overflow-hidden  "
       )}
     >
       <div className="flex items-center justify-between mt-4 pl-4 pr-4">
@@ -47,7 +47,7 @@ const Sidebar = (props: Props) => {
           </Link>
         ))}
         {isOpen && (
-          <div className="flex w-full mt-9 items-center gap-x-2 ">
+          <div className="flex  h-full w-full mt-9 items-center gap-x-2 ">
             <FullSidebar/>
           </div>
         )}
