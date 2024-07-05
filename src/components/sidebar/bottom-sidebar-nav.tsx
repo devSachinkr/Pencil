@@ -1,4 +1,3 @@
-"use client";
 import { SIDEBAR_MENU_OPTIONS_BOTTOM } from "@/constants";
 import Link from "next/link";
 import React from "react";
@@ -7,11 +6,15 @@ import { Progress } from "../ui/progress";
 import DialogBox from "../global/dialog-box";
 import FileForm from "../forms/file-form";
 import { useGetTeams } from "@/hooks/team";
+import { useFile } from "@/hooks/file";
+import ProgressBar from "./progress-bar";
 
-type Props = {};
+type Props = {
+  activeTeam: any;
+};
 
-const BottomSIdeBarNav = (props: Props) => {
-  const { setActiveTeam, activeTeam } = useGetTeams();
+const BottomSIdeBarNav = ({ activeTeam }: Props) => {
+  
   return (
     <section className="w-full flex items-center flex-col ">
       {SIDEBAR_MENU_OPTIONS_BOTTOM.map((item) => (
@@ -40,19 +43,15 @@ const BottomSIdeBarNav = (props: Props) => {
           desc="Easily create a new file with a single click"
           cardTitle="File Details"
           cardDesc="Fill in the details of your file"
-          content={<FileForm />}
+          content={<FileForm activeTeam={activeTeam}/>}
         >
-          <Button
-            className="w-[90%] mt-4 text-lg font-semibold"          >
+          <Button className="w-[90%] mt-4 text-lg font-semibold">
             New File
           </Button>
         </DialogBox>
 
-        <Progress value={90} className="mt-3 w-[90%]" />
-        <span className="text-muted-foreground"> 1 of 5</span>
-        <span className="text-muted-foreground text-center">
-          Upgrade plan for unlimited access
-        </span>
+      <ProgressBar activeTeam={activeTeam}/>
+      
       </div>
     </section>
   );

@@ -91,7 +91,7 @@ export type sidebarMenuOptionBottom = {
   name: string;
   path: string;
   icon: LucideIcon;
-  sideIcon: string ;
+  sideIcon: string;
 };
 export const SIDEBAR_MENU_OPTIONS_BOTTOM: sidebarMenuOptionBottom[] = [
   {
@@ -119,3 +119,14 @@ export const SIDEBAR_MENU_OPTIONS_BOTTOM: sidebarMenuOptionBottom[] = [
     sideIcon: "E",
   },
 ];
+
+export type FILE_SCHEMA = {
+  _id: string;
+  fileName: string;
+  archived: boolean;
+  createdBy: string;
+  _creationTime: number;
+  document: string;
+  teamID: string;
+  whiteBoard: string;
+}|null ;

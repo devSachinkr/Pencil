@@ -69,6 +69,12 @@ export const useCreateTeam = () => {
   };
 };
 
+export type TEAM = {
+  _id: string;
+  createdBy: string;
+  name: string;
+  _creationTime: number;
+};
 export const useGetTeams = () => {
   const convex = useConvex();
   const [teamData, setTeamData] = useState<
@@ -79,30 +85,18 @@ export const useGetTeams = () => {
       _creationTime: number;
     }[]
   >([]);
-  const [activeTeam, setActiveTeam] = useState< {
-    _id: string;
-    createdBy: string;
-    name: string;
-    _creationTime: number;
-  }>();
-  console.log(activeTeam);
+  const [activeTeam, setActiveTeam] = useState<TEAM>();
 
   const [loading, setLoading] = useState<boolean>(false);
   const { user } = useKindeBrowserClient();
   useEffect(() => {
     user && getUser();
   }, [user]);
-  
- 
+
   const getUser = async () => {
     try {
       setLoading(true);
-      const res: {
-        _id: string;
-        createdBy: string;
-        name: string;
-        _creationTime: number;
-      }[] = await convex.query(api.teams.getTeams, {
+      const res: TEAM[] = await convex.query(api.teams.getTeams, {
         email: user?.email!,
       });
       if (res) {

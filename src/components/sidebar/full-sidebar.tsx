@@ -15,10 +15,9 @@ import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Button } from "../ui/button";
 import { Card, CardContent } from "../ui/card";
 import { Separator } from "../ui/separator";
+import { useTeam } from "@/providers/team-provide";
 const FullSidebar = () => {
-  const { loading, teamData, user, activeTeam, setActiveTeam } = useGetTeams();
-  console.log("first");
-  console.log(activeTeam);
+  const { teamData, user, activeTeam, setActiveTeam } = useTeam();
   return (
     <div className=" w-full  h-screen flex flex-col items-center ">
       <div className="flex-1 flex w-full  flex-col items-center">
@@ -97,6 +96,7 @@ const FullSidebar = () => {
             </Card>
           </PopoverContent>
         </Popover>
+
         <section
           className=" w-full mt-8 flex
       flex-col items-center"
@@ -110,9 +110,8 @@ const FullSidebar = () => {
           </Link>
         </section>
       </div>
-
       <div className="flex-1">
-        <BottomSIdeBarNav />
+        <BottomSIdeBarNav activeTeam={activeTeam} />
       </div>
     </div>
   );

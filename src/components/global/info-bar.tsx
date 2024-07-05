@@ -1,3 +1,4 @@
+'use client';
 import Image from "next/image";
 import React from "react";
 import pencil from "../../../public/pencil.png";
@@ -6,10 +7,11 @@ import Link from "next/link";
 import { ModeToggle } from "./mode-toggle";
 import { LoginLink } from "@kinde-oss/kinde-auth-nextjs/components";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
+import UserButton from "./user-button";
+import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
 type Props = {};
-const InfoBar = async (props: Props) => {
-  const { getUser } = getKindeServerSession();
-  const user = await getUser();
+const InfoBar = (props: Props) => {
+  const user =useKindeBrowserClient();
   return (
     <div className="w-full flex items-center justify-between pt-4 bg-transparent sticky top-0 z-[99]">
       <div className="pl-3 flex items-center ">
@@ -39,7 +41,7 @@ const InfoBar = async (props: Props) => {
             Dashboard
           </Link>
         )}
-
+      { user && <UserButton/>}
         <ModeToggle />
       </div>
     </div>

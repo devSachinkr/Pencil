@@ -2,19 +2,23 @@
 
 import { createFileSchema } from "@/types";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useEffect, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { api } from "../../../convex/_generated/api";
-import { useMutation } from "convex/react";
+import { useConvex, useMutation } from "convex/react";
 import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
-import { useGetTeams } from "../team";
+import { TEAM, useGetTeams } from "../team";
 import ToastNotify from "@/components/global/toast-notify";
+import { FILE_SCHEMA } from "@/constants";
+import { useRouter } from "next/navigation";
 
-export const useFile = () => {
+export const useFile = ({ activeTeam }: { activeTeam?: TEAM }) => {
+  const convex = useConvex();
   const { user } = useKindeBrowserClient();
-  const { setActiveTeam, activeTeam } = useGetTeams();
-  const [selectedTeam, setSelectedTeam] = useState<string>("");
+  const router = useRouter();
+  const [selectedTeam, setSelectedTeam] = useState<TEAM>();
+  const [filesLenght, setFilelenght] = useState<Number>(0);
   const form = useForm<z.infer<typeof createFileSchema>>({
     resolver: zodResolver(createFileSchema),
     mode: "onChange",
@@ -25,6 +29,7 @@ export const useFile = () => {
   const createFile = useMutation(api.files.createFile);
   const { handleSubmit } = form;
   const [loading, setLoading] = useState<boolean>(false);
+ const [tracking, setTracking] = useState<boolean>(false);
   const handelCreate = handleSubmit(
     async (data: z.infer<typeof createFileSchema>) => {
       setLoading(true);
@@ -33,9 +38,13 @@ export const useFile = () => {
           fileName: data.fileName,
           createdBy: user?.email!,
           teamId: activeTeam?._id!,
+          archived: false,
+          document: "",
+          whiteBoard: "",
         });
 
         if (res) {
+          getFilesOfTeam();
           ToastNotify({
             title: "Success",
             msg: "File created successfully",
@@ -54,7 +63,38 @@ export const useFile = () => {
     }
   );
 
-  
+  const getFilesOfTeam = async () => {
+    try {
+      setLoading(true);
+      const res: FILE_SCHEMA[] | null = await convex.query(api.files.getFiles, {
+        teamId: activeTeam?._id!,
+      });
+      if (res) {
+        setFilelenght(res.length);
+        router.refresh();
+        return res;
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-  return { form, loading, handelCreate };
+  useEffect(() => {
+    getFilesOfTeam();
+  }, [activeTeam]);
+
+  useEffect(() => {
+    setSelectedTeam(activeTeam);
+  }, [activeTeam]);
+
+  return {
+    form,
+    loading,
+    handelCreate,
+    activeTeam,
+    selectedTeam,
+    filesLenght,
+  };
 };

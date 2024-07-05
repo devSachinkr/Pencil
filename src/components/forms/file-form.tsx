@@ -13,11 +13,15 @@ import { useFile } from "@/hooks/file";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { Spinner } from "../global/spinner";
+import { TEAM } from "@/hooks/team";
 
-type Props = {};
+type Props = {
+  activeTeam:TEAM
+};
 
-const FileForm = (props: Props) => {
-  const { form, loading,handelCreate } = useFile();
+const FileForm = ({activeTeam}: Props) => {
+  const { form, loading,handelCreate } = useFile({activeTeam});
+  
   return (
     <div className="w-full">
       <Form {...form}>
