@@ -8,14 +8,14 @@ import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import BottomSIdeBarNav from "./bottom-sidebar-nav";
 
 import { TEAM_DETAILS_MENU_OPTIONS } from "@/constants";
-import { useGetTeams } from "@/hooks/team";
+
 import { cn } from "@/lib/utils";
+import { useTeam } from "@/providers/team-provide";
 import { LogoutLink } from "@kinde-oss/kinde-auth-nextjs";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Button } from "../ui/button";
 import { Card, CardContent } from "../ui/card";
 import { Separator } from "../ui/separator";
-import { useTeam } from "@/providers/team-provide";
 const FullSidebar = () => {
   const { teamData, user, activeTeam, setActiveTeam } = useTeam();
   return (
@@ -111,7 +111,7 @@ const FullSidebar = () => {
         </section>
       </div>
       <div className="flex-1">
-        <BottomSIdeBarNav activeTeam={activeTeam} />
+        <BottomSIdeBarNav />
       </div>
     </div>
   );

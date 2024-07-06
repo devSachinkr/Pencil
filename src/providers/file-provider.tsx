@@ -53,6 +53,10 @@ export const FileProvider = ({ children }: fileProvideProps) => {
     }
   };
 
+  useEffect(()=>{
+   getFilesOfTeam();
+  },[activeTeam])
+
   const value: initialProps = {
     activeTeam,
     fileData,

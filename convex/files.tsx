@@ -30,6 +30,7 @@ export const getFiles = query({
       const res = ctx.db
         .query("files")
         .filter((q) => q.eq(q.field("teamId"), args.teamId))
+        .order('desc')
         .collect();
 
       if (res) return res;

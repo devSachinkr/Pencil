@@ -12,13 +12,12 @@ import { TEAM, useGetTeams } from "../team";
 import ToastNotify from "@/components/global/toast-notify";
 import { FILE_SCHEMA } from "@/constants";
 import { useRouter } from "next/navigation";
+import { useTeam } from "@/providers/team-provide";
 
-export const useFile = ({ activeTeam }: { activeTeam?: TEAM }) => {
-  const convex = useConvex();
+export const useFile = () => {
   const { user } = useKindeBrowserClient();
-  const router = useRouter();
-  const [selectedTeam, setSelectedTeam] = useState<TEAM>();
-  const [filesLenght, setFilelenght] = useState<Number>(0);
+  const { activeTeam, getUser } = useTeam();
+
   const form = useForm<z.infer<typeof createFileSchema>>({
     resolver: zodResolver(createFileSchema),
     mode: "onChange",
@@ -26,10 +25,11 @@ export const useFile = ({ activeTeam }: { activeTeam?: TEAM }) => {
       fileName: "",
     },
   });
+
   const createFile = useMutation(api.files.createFile);
   const { handleSubmit } = form;
   const [loading, setLoading] = useState<boolean>(false);
- const [tracking, setTracking] = useState<boolean>(false);
+
   const handelCreate = handleSubmit(
     async (data: z.infer<typeof createFileSchema>) => {
       setLoading(true);
@@ -44,7 +44,7 @@ export const useFile = ({ activeTeam }: { activeTeam?: TEAM }) => {
         });
 
         if (res) {
-          getFilesOfTeam();
+          getUser();
           ToastNotify({
             title: "Success",
             msg: "File created successfully",
@@ -63,38 +63,10 @@ export const useFile = ({ activeTeam }: { activeTeam?: TEAM }) => {
     }
   );
 
-  const getFilesOfTeam = async () => {
-    try {
-      setLoading(true);
-      const res: FILE_SCHEMA[] | null = await convex.query(api.files.getFiles, {
-        teamId: activeTeam?._id!,
-      });
-      if (res) {
-        setFilelenght(res.length);
-        router.refresh();
-        return res;
-      }
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    getFilesOfTeam();
-  }, [activeTeam]);
-
-  useEffect(() => {
-    setSelectedTeam(activeTeam);
-  }, [activeTeam]);
-
   return {
     form,
     loading,
     handelCreate,
     activeTeam,
-    selectedTeam,
-    filesLenght,
   };
 };

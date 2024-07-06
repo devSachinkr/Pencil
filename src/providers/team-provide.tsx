@@ -24,14 +24,16 @@ type initialProps = {
     given_name: string | null;
     family_name: string | null;
     picture: string | null;
-} | null
+  } | null;
+  getUser: () => Promise<void>;
 };
 const initialState: initialProps = {
   activeTeam: {} as TEAM,
   loading: false,
   setActiveTeam: () => {},
   teamData: [] as TEAM[],
-  user:{} as initialProps['user']
+  user: {} as initialProps["user"],
+  getUser: async () => {},
 };
 
 const TeamContext = createContext(initialState);
@@ -76,7 +78,8 @@ export const TeamProvider = ({ children }: TeamProvideProps) => {
     loading,
     setActiveTeam,
     teamData,
-    user
+    user,
+    getUser,
   };
   return <TeamContext.Provider value={value}>{children}</TeamContext.Provider>;
 };

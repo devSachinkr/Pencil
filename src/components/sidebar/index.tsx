@@ -10,6 +10,7 @@ import { Separator } from "../ui/separator";
 import { Tooltips } from "../global/tooltip";
 import FullSidebar from "./full-sidebar";
 import {  useSideBar } from "@/providers/sidebar-context";
+import { ModeToggle } from "../global/mode-toggle";
 type Props = {};
 
 const Sidebar = (props: Props) => {
@@ -46,6 +47,9 @@ const Sidebar = (props: Props) => {
               )}
             </Link>
           ))}
+          { !isOpen && <div className="mt-10">
+          <ModeToggle />
+          </div>}
           {isOpen && (
             <div className="flex  h-full w-full mt-9 items-center gap-x-2 ">
               <FullSidebar />

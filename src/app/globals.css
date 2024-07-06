@@ -7,6 +7,25 @@ body {
   height: 100%;
 }
 
+ h1.ce-header{
+  @apply text-4xl font-bold
+ }
+ h2.ce-header{
+  @apply text-3xl font-bold
+ }
+ h3.ce-header{
+  @apply text-2xl font-bold
+ }
+ h4.ce-header{
+  @apply text-xl font-bold
+ }
+ h5.ce-header{
+  @apply text-lg font-bold
+ }
+ h6.ce-header{
+  @apply text-base font-bold
+ }
+
 @layer base {
   :root {
     --background: 216 100% 98.04%;

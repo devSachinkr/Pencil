@@ -129,4 +129,24 @@ export type FILE_SCHEMA = {
   document: string;
   teamID: string;
   whiteBoard: string;
-}|null ;
+} | null;
+
+import { useFile } from "@/providers/file-provider";
+
+export const TABLE_HEAD: { name: string }[] = [
+  {
+    name: "File Name",
+  },
+  {
+    name: "Created By",
+  },
+  {
+    name: "Created At",
+  },
+  {
+    name: "Author",
+  },
+  {
+    name: "Action",
+  },
+];

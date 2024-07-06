@@ -9,11 +9,9 @@ import { useGetTeams } from "@/hooks/team";
 import { useFile } from "@/hooks/file";
 import ProgressBar from "./progress-bar";
 
-type Props = {
-  activeTeam: any;
-};
 
-const BottomSIdeBarNav = ({ activeTeam }: Props) => {
+
+const BottomSIdeBarNav = () => {
   
   return (
     <section className="w-full flex items-center flex-col ">
@@ -43,14 +41,14 @@ const BottomSIdeBarNav = ({ activeTeam }: Props) => {
           desc="Easily create a new file with a single click"
           cardTitle="File Details"
           cardDesc="Fill in the details of your file"
-          content={<FileForm activeTeam={activeTeam}/>}
+          content={<FileForm />}
         >
           <Button className="w-[90%] mt-4 text-lg font-semibold">
             New File
           </Button>
         </DialogBox>
 
-      <ProgressBar activeTeam={activeTeam}/>
+      <ProgressBar />
       
       </div>
     </section>
