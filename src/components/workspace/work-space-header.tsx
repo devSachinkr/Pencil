@@ -14,7 +14,7 @@ type Props = {
 
 const WorkSpaceHeader = ({ workspaceId }: Props) => {
   const { fileData, loading } = useFile();
-  const {setTriggerSave,triggerSave}=useEditor();
+  const {setTriggerSave}=useEditor();
   if (!fileData) return null;
   const Data = fileData?.filter((file) => file?._id === workspaceId);
   const currentFileData = Data[0];

@@ -1,7 +1,10 @@
+"use client";
 import WorkSpaceBody from "@/components/workspace/work-space-body";
 import WorkSpaceHeader from "@/components/workspace/work-space-header";
+import { useEditor } from "@/hooks/editor";
+import { useFile } from "@/providers/file-provider";
 
-import React from "react";
+import React, { useEffect } from "react";
 
 type Props = {
   params: {
@@ -9,9 +12,11 @@ type Props = {
   };
 };
 
-const page = ({ params: { workspaceId } }: Props) => {
+const Page = ({ params: { workspaceId } }: Props) => {
+  const { setWorkspaceId } = useFile();
+  setWorkspaceId(workspaceId);
   return (
-    <div className="w-full overflow-x-hidden">
+    <div className="w-full overflow-x-hidden lg:h-screen">
       <WorkSpaceHeader workspaceId={workspaceId} />
 
       <WorkSpaceBody workspaceId={workspaceId} />
@@ -19,4 +24,4 @@ const page = ({ params: { workspaceId } }: Props) => {
   );
 };
 
-export default page;
+export default Page;

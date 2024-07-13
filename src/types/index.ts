@@ -9,3 +9,20 @@ export const createFileSchema = z.object({
     message: "File name is too long",
   }),
 });
+export type documentType =
+  | {
+      time: number;
+      blocks: Array<{
+        id: string;
+        type: string;
+        data: {
+          text: string;
+          level?: number;
+          style?: string;
+          items?: Array<string>;
+        };
+      }>;
+      version: string;
+    }
+  | null
+  | undefined;
